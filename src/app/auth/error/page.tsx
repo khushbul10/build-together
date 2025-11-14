@@ -1,10 +1,11 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-
-export default function AuthErrorPage() {
-  const params = useSearchParams();
-  const error = params.get("error") || "AccessDenied";
+export default function AuthErrorPage({
+  searchParams,
+}: {
+  // searchParams are provided by Next.js for server components
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  const raw = searchParams?.error;
+  const error = Array.isArray(raw) ? raw[0] : raw ?? "AccessDenied";
 
   const friendlyMessage = (() => {
     switch (error) {
