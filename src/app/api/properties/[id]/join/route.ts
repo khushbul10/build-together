@@ -10,18 +10,13 @@ import clientPromise from "@/lib/dbConnect";
  */
 export async function POST(
   request: Request,
-  context: { params : { id: string } }
+  context: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
-    // console.log("Params in join route:", params);
-    // const propertyId = context.params.id;
-    // console.log("JOIN ROUTE: Attempting to join project ", propertyId);
-
-    const url = new URL(request.url);
-    const pathSegments = url.pathname.split('/');
-    console.log("Path segments:", pathSegments);
-    const propertyId = pathSegments[pathSegments.length - 2];
-    console.log("JOIN ROUTE: Attempting to join project ", propertyId);
+    // `context.params` may be a Promise in newer Next.js versions — unwrap it.
+    const resolvedParams = await context.params;
+    const propertyId = resolvedParams.id;
+    console.log("JOIN ROUTE: Attempting to join project", propertyId);
 
 
     // 1. Get authenticated user
@@ -79,7 +74,7 @@ export async function POST(
 
     await propertiesCollection.updateOne(
       { _id: new ObjectId(propertyId) },
-      { $push: { members: newMember } }
+      { $push: { members: newMember } } as any
     );
 
     return NextResponse.json(
