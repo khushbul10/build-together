@@ -28,7 +28,7 @@ const formatCurrency = (amount: number) => {
   }).format(amount);
 };
 
-export default function PropertyList() {
+export default function PropertyList({ limit }: { limit?: number }) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,7 +39,7 @@ export default function PropertyList() {
         const res = await fetch("/api/properties");
         if (res.ok) {
           const data = await res.json();
-          setProperties(data);
+          setProperties(limit ? data.slice(0, limit) : data);
         } else {
           console.error("Failed to fetch properties");
         }
@@ -50,7 +50,7 @@ export default function PropertyList() {
     }
 
     fetchProperties();
-  }, []);
+  }, [limit]);
 
   if (isLoading) {
     return (

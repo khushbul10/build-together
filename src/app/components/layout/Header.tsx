@@ -31,6 +31,12 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2">
+            <Link
+              href="/properties"
+              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
+            >
+              Properties
+            </Link>
             <ModeToggle />
             {isLoading ? (
               <div className="h-10 w-24 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
@@ -128,6 +134,13 @@ export default function Navbar() {
                       </div>
                     </div>
                     <Link
+                      href="/properties"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    >
+                      Properties
+                    </Link>
+                    <Link
                       href="/my-projects"
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
@@ -155,15 +168,24 @@ export default function Navbar() {
                     </button>
                   </>
                 ) : (
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      signIn();
-                    }}
-                    className="px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg shadow-md transition-all"
-                  >
-                    Sign In
-                  </button>
+                  <>
+                    <Link
+                      href="/properties"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    >
+                      Properties
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        signIn();
+                      }}
+                      className="px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg shadow-md transition-all"
+                    >
+                      Sign In
+                    </button>
+                  </>
                 )}
               </div>
             )}
