@@ -5,6 +5,7 @@ import { MongoClient } from "mongodb";
 
 export async function POST(request: Request) {
   try {
+    console.log("Register API called");
     const { name, email, password } = await request.json();
 
     if (!name || !email || !password) {

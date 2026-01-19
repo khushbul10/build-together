@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 import type { Property } from "@/types/property";
+import Link from "next/link";
 
 // --- Helper Icons ---
 const UsersIcon = () => ( <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg> );
@@ -61,7 +62,7 @@ export default function PropertyDetailsClient({ property }: { property: Property
   // --- Determine what button to show ---
   const renderActionButton = () => {
     if (sessionStatus === "loading") {
-      return <div className="h-12 w-full animate-pulse rounded-md bg-gray-200"></div>;
+      return <div className="h-12 w-full animate-pulse rounded-md bg-gray-200 dark:bg-gray-700"></div>;
     }
 
     if (!session) {
@@ -79,12 +80,20 @@ export default function PropertyDetailsClient({ property }: { property: Property
     const isAdmin = property.admins.some(admin => admin.id === userId);
     const isMember = property.members.some(member => member.id === userId);
 
-    if (isAdmin) {
-      return <p className="text-center font-medium text-green-700">You are an admin of this project.</p>;
-    }
-
-    if (isMember) {
-      return <p className="text-center font-medium text-green-700">You have successfully joined this project!</p>;
+    if (isAdmin || isMember) {
+      return (
+        <div className="text-center">
+          <p className="font-medium text-green-700 dark:text-green-400 mb-4">
+            {isAdmin ? "You are an admin of this project." : "You have successfully joined this project!"}
+          </p>
+          <Link
+            href={`/property/${property._id}/chat`}
+            className="w-full inline-flex justify-center rounded-md bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+          >
+            Go to Project Chat
+          </Link>
+        </div>
+      );
     }
 
     return (
@@ -106,7 +115,7 @@ export default function PropertyDetailsClient({ property }: { property: Property
         {/* --- Left Column (Details) --- */}
         <div className="w-full lg:w-3/5">
           {/* Image Gallery (shows first image) */}
-          <div className="w-full overflow-hidden rounded-lg bg-gray-200">
+          <div className="w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-gray-800">
             <img
               src={property.images[0]}
               alt={property.title}
@@ -116,27 +125,27 @@ export default function PropertyDetailsClient({ property }: { property: Property
           
           {/* Project Details */}
           <div className="mt-6">
-            <h1 className="text-3xl font-bold text-gray-900">{property.title}</h1>
-            <p className="mt-1 text-lg font-medium text-gray-600">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{property.title}</h1>
+            <p className="mt-1 text-lg font-medium text-gray-600 dark:text-gray-400">
               Created by {property.created_by.name}
             </p>
             
-            <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-600">
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
               <span className="flex items-center"><LocationIcon /> {property.location}</span>
               <span className="flex items-center"><CalendarIcon /> Created: {formatDate(property.created_at)}</span>
             </div>
 
-            <p className="mt-6 text-base text-gray-700 whitespace-pre-wrap">
+            <div className="mt-6 text-base text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
               {property.description}
-            </p>
+            </div>
           </div>
           
           {/* --- Member & Admin Lists --- */}
           <div className="mt-10">
-            <h3 className="text-xl font-bold text-gray-900">Project Team</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Project Team</h3>
             <div className="mt-4">
-              <h4 className="font-semibold text-gray-800">Admins</h4>
-              <ul className="list-disc list-inside ml-2 mt-2 space-y-1 text-gray-600">
+              <h4 className="font-semibold text-gray-800 dark:text-gray-200">Admins</h4>
+              <ul className="list-disc list-inside ml-2 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                 {property.admins.map(admin => (
                   <li key={admin.id}>{admin.name}</li>
                 ))}
@@ -144,15 +153,15 @@ export default function PropertyDetailsClient({ property }: { property: Property
             </div>
             
             <div className="mt-4">
-              <h4 className="font-semibold text-gray-800">Members ({property.members.length})</h4>
+              <h4 className="font-semibold text-gray-800 dark:text-gray-200">Members ({property.members.length})</h4>
               {property.members.length > 0 ? (
-                <ul className="list-disc list-inside ml-2 mt-2 space-y-1 text-gray-600">
+                <ul className="list-disc list-inside ml-2 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                   {property.members.map(member => (
                     <li key={member.id}>{member.name} (Joined: {formatDate(member.joined_at)})</li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-gray-500 text-sm mt-2">No members have joined yet.</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">No members have joined yet.</p>
               )}
             </div>
           </div>
@@ -161,15 +170,15 @@ export default function PropertyDetailsClient({ property }: { property: Property
         {/* --- Right Column (Funding Box) --- */}
         <div className="w-full lg:w-2/5">
           {/* This makes the box "stick" to the top when scrolling on large screens */}
-          <div className="sticky top-24 space-y-4 rounded-lg border border-gray-200 bg-white p-6 shadow-md">
+          <div className="sticky top-24 space-y-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-md">
             
             {/* Progress Bar */}
             <div>
-              <div className="flex justify-between text-sm font-medium text-gray-600">
+              <div className="flex justify-between text-sm font-medium text-gray-600 dark:text-gray-400">
                 <span>Funding Progress</span>
                 <span className="font-bold">{fundingProgress.toFixed(0)}%</span>
               </div>
-              <div className="mt-2 w-full bg-gray-200 rounded-full h-2.5">
+              <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
                 <div
                   className="bg-green-600 h-2.5 rounded-full"
                   style={{ width: `${fundingProgress}%` }}
@@ -178,18 +187,18 @@ export default function PropertyDetailsClient({ property }: { property: Property
             </div>
 
             {/* Stats */}
-            <div className="flex items-center text-gray-800">
+            <div className="flex items-center text-gray-800 dark:text-gray-200">
               <UsersIcon />
               <span className="text-2xl font-bold">{totalBackers}</span>
-              <span className="ml-2 text-gray-600">backers of {property.expected_members} expected</span>
+              <span className="ml-2 text-gray-600 dark:text-gray-400">backers of {property.expected_members} expected</span>
             </div>
             
-            <div className="pt-4 border-t border-gray-200">
-              <p className="text-sm text-gray-600">Cost per Member</p>
-              <p className="text-3xl font-bold text-gray-900">
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Cost per Member</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">
                 {formatCurrency(property.per_member_cost)}
               </p>
-              <p className="text-sm font-medium text-gray-600 mt-1">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mt-1">
                 Total Target: {formatCurrency(property.target_amount)}
               </p>
             </div>
@@ -202,7 +211,7 @@ export default function PropertyDetailsClient({ property }: { property: Property
               {renderActionButton()}
             </div>
             
-            <p className="text-xs text-gray-500 text-center">Your contribution will be processed securely.</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">Your contribution will be processed securely.</p>
           </div>
         </div>
       </div>
