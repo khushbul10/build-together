@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
   console.log("Pusher auth request - Session:", session?.user?.name);
 
-  if (!session?.user) {
+  if (!session?.user?.id) {
     console.error("Pusher auth failed - No session");
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -25,8 +25,8 @@ export async function POST(req: Request) {
   const presenceData = {
     user_id: session.user.id,
     user_info: {
-      name: session.user.name,
-      email: session.user.email,
+      name: session.user.name || "Anonymous",
+      email: session.user.email || "",
     },
   };
 

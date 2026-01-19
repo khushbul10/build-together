@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     const db = client.db('build-together');
     await db.collection("properties").updateOne(
       { _id: new ObjectId(propertyId) },
-      { $push: { chat_messages: chatMessage } }
+      { $push: { chat_messages: chatMessage } } as any
     );
 
     // 2. Trigger Pusher event
