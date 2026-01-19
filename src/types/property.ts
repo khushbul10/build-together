@@ -27,4 +27,10 @@ export interface Property {
   target_amount: number; // This is (expected_members * per_member_cost)
   
   status: "FUNDING" | "ACTIVE" | "COMPLETED";
+
+  chat_messages: {
+    user: string;
+    message: string;
+    timestamp: Date;
+  }[];
 }

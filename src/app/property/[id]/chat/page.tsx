@@ -3,25 +3,29 @@ import ChatRoom from "@/app/components/properties/ChatRoom";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default async function PropertyChatPage({ params }: { params: { id: string } }) {
-  const property = await getPropertyById(params.id);
+export default async function PropertyChatPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
+  const resolvedParams = await params;
+  const property = await getPropertyById(resolvedParams.id);
 
   if (!property) {
     notFound();
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <Link href={`/property/${params.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">
-          &larr; Back to Property Details
+    <div className="container mx-auto py-8">
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{property.title}</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400">Group Chat</p>
+        </div>
+        <Link href={`/property/${property._id}`} className="text-blue-500 hover:underline">
+          &larr; Back to Project Details
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
-          Chat for: {property.title}
-        </h1>
       </div>
-      
-      <ChatRoom channelName={`chat-${property._id}`} />
+      <ChatRoom 
+        channelName={`presence-property-${property._id}`}
+        initialMessages={property.chat_messages || []}
+      />
     </div>
   );
 }

@@ -3,14 +3,15 @@ import PropertyDetailsClient from "./PropertyDetailsClient";
 import { getPropertyById } from "@/lib/properties";
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }> | { id: string };
 }
 
 /**
  * The main page component
  */
 export default async function PropertyPage({ params }: PageProps) {
-  const property = await getPropertyById(params.id);
+  const resolvedParams = await params;
+  const property = await getPropertyById(resolvedParams.id);
 
   // If no property is found, show a 404 page
   if (!property) {
