@@ -160,12 +160,12 @@ export default function PropertyDetailsClient({ property }: { property: Property
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white leading-tight">{property.title}</h1>
                 <div className="mt-3 flex items-center gap-2">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg">
-                    {property.created_by.name.charAt(0).toUpperCase()}
+                    {property.created_by.name?.charAt(0).toUpperCase() || 'U'}
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Created by</p>
                     <p className="text-base font-semibold text-gray-900 dark:text-white">
-                      {property.created_by.name}
+                      {property.created_by.name || 'Unknown'}
                     </p>
                   </div>
                 </div>
@@ -209,9 +209,9 @@ export default function PropertyDetailsClient({ property }: { property: Property
                 {property.admins.map(admin => (
                   <div key={admin.id} className="flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/10 dark:to-orange-900/10 rounded-xl border border-yellow-100 dark:border-yellow-800/30">
                     <div className="h-9 w-9 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                      {admin.name.charAt(0).toUpperCase()}
+                      {admin.name?.charAt(0).toUpperCase() || 'A'}
                     </div>
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">{admin.name}</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">{admin.name || 'Unknown Admin'}</span>
                   </div>
                 ))}
               </div>
@@ -231,9 +231,9 @@ export default function PropertyDetailsClient({ property }: { property: Property
                     <div key={member.id} className="flex items-center justify-between gap-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-xl border border-blue-100 dark:border-blue-800/30">
                       <div className="flex items-center gap-3">
                         <div className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                          {member.name.charAt(0).toUpperCase()}
+                          {member.name?.charAt(0).toUpperCase() || 'M'}
                         </div>
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">{member.name}</span>
+                        <span className="text-gray-700 dark:text-gray-300 font-medium">{member.name || 'Unknown Member'}</span>
                       </div>
                       <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
                         {formatDate(member.joined_at)}
