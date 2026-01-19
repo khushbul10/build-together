@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
-import { pusherClient } from "@/lib/pusher";
+import PusherClient from "pusher-js";
 
 interface Message {
   user: string;
@@ -24,15 +24,50 @@ export default function ChatRoom({ channelName, initialMessages }: ChatRoomProps
   const [messages, setMessages] = useState(initialMessages);
   const [newMessage, setNewMessage] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
+  const pusherRef = useRef<PusherClient | null>(null);
 
   useEffect(() => {
-    const channel = pusherClient.subscribe(channelName);
+    // Initialize Pusher client
+    if (!pusherRef.current) {
+      pusherRef.current = new PusherClient(
+        process.env.NEXT_PUBLIC_PUSHER_KEY!,
+        {
+          cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+          authEndpoint: "/api/pusher/auth",
+        }
+      );
+    }
+
+    const pusher = pusherRef.current;
+    const channel = pusher.subscribe(channelName);
+
+    // Log subscription state
+    channel.bind('pusher:subscription_succeeded', () => {
+      console.log('Successfully subscribed to', channelName);
+    });
+
+    channel.bind('pusher:subscription_error', (error: any) => {
+      console.error('Subscription error:', error);
+    });
 
     channel.bind("chat-event", (data: { user: string; message: string; timestamp: Date }) => {
       console.log("--- Pusher Event Received ---");
       console.log("Data from Pusher:", data);
       setMessages((prev) => {
         console.log("Previous messages state:", prev);
+        
+        // Check if this message already exists (to prevent duplicates from optimistic updates)
+        const isDuplicate = prev.some((msg) => 
+          msg.user === data.user && 
+          msg.message === data.message &&
+          Math.abs(new Date(msg.timestamp).getTime() - new Date(data.timestamp).getTime()) < 2000 // Within 2 seconds
+        );
+        
+        if (isDuplicate) {
+          console.log("Duplicate message detected, skipping");
+          return prev;
+        }
+        
         const newMessages = [...prev, data];
         console.log("New messages state:", newMessages);
         return newMessages;
@@ -40,7 +75,8 @@ export default function ChatRoom({ channelName, initialMessages }: ChatRoomProps
     });
 
     return () => {
-      pusherClient.unsubscribe(channelName);
+      channel.unbind_all();
+      pusher.unsubscribe(channelName);
     };
   }, [channelName]);
 
@@ -50,7 +86,18 @@ export default function ChatRoom({ channelName, initialMessages }: ChatRoomProps
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || !session?.user?.name) return;
+
+    const messageText = newMessage.trim();
+    const optimisticMessage = {
+      user: session.user.name,
+      message: messageText,
+      timestamp: new Date(),
+    };
+
+    // Optimistically add message to UI immediately
+    setMessages((prev) => [...prev, optimisticMessage]);
+    setNewMessage("");
 
     try {
       await fetch("/api/chat", {
@@ -59,16 +106,16 @@ export default function ChatRoom({ channelName, initialMessages }: ChatRoomProps
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: newMessage,
+          message: messageText,
           channel: channelName,
         }),
       });
     } catch (error) {
       console.error("Failed to send message:", error);
+      // Remove the optimistic message on error
+      setMessages((prev) => prev.filter((msg) => msg !== optimisticMessage));
       // Optionally, show an error to the user
     }
-
-    setNewMessage("");
   };
 
   if (!session) {
