@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 import type { Property } from "@/types/property";
 import Link from "next/link";
@@ -29,6 +29,7 @@ const formatDate = (dateString: Date) => {
  */
 export default function PropertyDetailsClient({ property }: { property: Property }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session, status: sessionStatus } = useSession();
   
   const [isLoading, setIsLoading] = useState(false);
@@ -67,12 +68,12 @@ export default function PropertyDetailsClient({ property }: { property: Property
 
     if (!session) {
       return (
-        <button
-          onClick={() => signIn()}
-          className="w-full justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 text-base font-semibold text-white shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-[1.02]"
+        <Link
+          href={`/signin?callbackUrl=${encodeURIComponent(pathname)}`}
+          className="w-full inline-flex justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 text-base font-semibold text-white shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-[1.02]"
         >
           Sign In to Join
-        </button>
+        </Link>
       );
     }
     

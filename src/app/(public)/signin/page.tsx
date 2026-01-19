@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function SigninPage() {
@@ -11,6 +11,8 @@ export default function SigninPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,8 +46,8 @@ export default function SigninPage() {
       // router.push(`/auth/error?error=${result.error}`);
 
     } else if (result?.ok) {
-      // Sign-in was successful
-      router.push("/"); // Redirect to homepage or dashboard
+      // Sign-in was successful - redirect to callback URL or homepage
+      router.push(callbackUrl);
     }
     
     setIsLoading(false);
@@ -172,7 +174,7 @@ export default function SigninPage() {
           {/* Google Sign In */}
           <div>
             <button
-              onClick={() => signIn("google", { callbackUrl: "/" })}
+              onClick={() => signIn("google", { callbackUrl })}
               className="w-full inline-flex justify-center items-center gap-3 py-3 px-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-900 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 hover:shadow-md"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">

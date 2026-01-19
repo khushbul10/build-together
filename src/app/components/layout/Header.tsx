@@ -4,10 +4,12 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { ModeToggle } from "../ModeToggle";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const isLoading = status === "loading";
 
@@ -79,12 +81,12 @@ export default function Navbar() {
                     </div>
                   </>
                 ) : (
-                  <button
-                    onClick={() => signIn()}
+                  <Link
+                    href={`/signin?callbackUrl=${encodeURIComponent(pathname)}`}
                     className="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
                   >
                     Sign In
-                  </button>
+                  </Link>
                 )}
               </>
             )}
@@ -176,15 +178,13 @@ export default function Navbar() {
                     >
                       Properties
                     </Link>
-                    <button
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                        signIn();
-                      }}
-                      className="px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg shadow-md transition-all"
+                    <Link
+                      href={`/signin?callbackUrl=${encodeURIComponent(pathname)}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg shadow-md transition-all text-center"
                     >
                       Sign In
-                    </button>
+                    </Link>
                   </>
                 )}
               </div>
