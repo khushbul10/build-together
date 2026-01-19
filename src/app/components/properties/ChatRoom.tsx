@@ -80,9 +80,15 @@ export default function ChatRoom({ channelName, initialMessages }: ChatRoomProps
     };
   }, [channelName]);
 
+  // Scroll to bottom on mount and when messages change
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Initial scroll to bottom on mount
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "auto" });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
