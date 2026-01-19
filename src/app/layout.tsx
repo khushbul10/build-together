@@ -17,8 +17,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Build Together",
-  description: "A platform to collaborate and build together",
+  title: "BuildTogether - Co-own Property with Others",
+  description: "Join forces with like-minded individuals to co-own and invest in properties. Building wealth together, one property at a time.",
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
