@@ -29,7 +29,14 @@ export default function ChatRoom({ channelName, initialMessages }: ChatRoomProps
     const channel = pusherClient.subscribe(channelName);
 
     channel.bind("chat-event", (data: { user: string; message: string; timestamp: Date }) => {
-      setMessages((prev) => [...prev, data]);
+      console.log("--- Pusher Event Received ---");
+      console.log("Data from Pusher:", data);
+      setMessages((prev) => {
+        console.log("Previous messages state:", prev);
+        const newMessages = [...prev, data];
+        console.log("New messages state:", newMessages);
+        return newMessages;
+      });
     });
 
     return () => {
