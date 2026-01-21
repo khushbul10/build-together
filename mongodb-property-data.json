@@ -1,0 +1,326 @@
+[
+  {
+    "_id": "6908df8f61c8cdd8092388d9",
+    "title": "Apple Orchard Investment",
+    "description": "Join us in establishing a premium apple orchard. This property will feature modern irrigation systems, organic farming practices, and multiple apple varieties including Honeycrisp, Fuji, and Gala. Expected ROI of 15-20% annually through direct sales and farmer's markets.",
+    "location": "Wenatchee, Washington",
+    "images": [
+      "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=800",
+      "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=800",
+      "https://images.unsplash.com/photo-1619546952812-adce5c6b3d0c?w=800",
+      "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800"
+    ],
+    "created_at": "2026-01-15T10:00:00.000Z",
+    "created_by": {
+      "id": "6908df8f61c8cdd8092388d8",
+      "name": "apple"
+    },
+    "admins": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple"
+      }
+    ],
+    "members": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple",
+        "joined_at": "2026-01-15T10:00:00.000Z"
+      }
+    ],
+    "expected_members": 10,
+    "per_member_cost": 5000,
+    "target_amount": 50000,
+    "status": "FUNDING",
+    "chat_messages": []
+  },
+  {
+    "_id": "6908df8f61c8cdd8092388da",
+    "title": "Luxury Beachfront Villa",
+    "description": "Invest in a stunning beachfront villa with breathtaking ocean views. This property features 5 bedrooms, infinity pool, private beach access, and modern amenities. Perfect for vacation rentals with expected 25% annual returns.",
+    "location": "Malibu, California",
+    "images": [
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800",
+      "https://images.unsplash.com/photo-1600596542815.35c94504a9db?w=800"
+    ],
+    "created_at": "2026-01-16T14:30:00.000Z",
+    "created_by": {
+      "id": "6908df8f61c8cdd8092388d8",
+      "name": "apple"
+    },
+    "admins": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple"
+      }
+    ],
+    "members": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple",
+        "joined_at": "2026-01-16T14:30:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e0",
+        "name": "john_doe",
+        "joined_at": "2026-01-17T09:15:00.000Z"
+      }
+    ],
+    "expected_members": 8,
+    "per_member_cost": 125000,
+    "target_amount": 1000000,
+    "status": "FUNDING",
+    "chat_messages": [
+      {
+        "user": "apple",
+        "message": "Welcome to the Malibu Villa project! Excited to have you all on board.",
+        "timestamp": "2026-01-16T14:35:00.000Z"
+      }
+    ]
+  },
+  {
+    "_id": "6908df8f61c8cdd8092388db",
+    "title": "Downtown Co-Working Space",
+    "description": "Modern co-working space in the heart of downtown. 5000 sq ft with private offices, conference rooms, high-speed internet, and premium amenities. Strong rental demand with 95% occupancy rate.",
+    "location": "Austin, Texas",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
+      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800",
+      "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=800"
+    ],
+    "created_at": "2026-01-10T08:00:00.000Z",
+    "created_by": {
+      "id": "6908df8f61c8cdd8092388d8",
+      "name": "apple"
+    },
+    "admins": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple"
+      }
+    ],
+    "members": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple",
+        "joined_at": "2026-01-10T08:00:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e1",
+        "name": "sarah_smith",
+        "joined_at": "2026-01-11T10:20:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e2",
+        "name": "mike_johnson",
+        "joined_at": "2026-01-12T15:45:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e3",
+        "name": "emily_davis",
+        "joined_at": "2026-01-13T11:30:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e4",
+        "name": "david_wilson",
+        "joined_at": "2026-01-14T09:00:00.000Z"
+      }
+    ],
+    "expected_members": 5,
+    "per_member_cost": 60000,
+    "target_amount": 300000,
+    "status": "ACTIVE",
+    "chat_messages": [
+      {
+        "user": "apple",
+        "message": "We're fully funded! Let's start the renovation process.",
+        "timestamp": "2026-01-14T10:00:00.000Z"
+      },
+      {
+        "user": "sarah_smith",
+        "message": "Great! When do we expect to open?",
+        "timestamp": "2026-01-14T10:15:00.000Z"
+      },
+      {
+        "user": "apple",
+        "message": "Targeting March 1st for grand opening.",
+        "timestamp": "2026-01-14T10:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "_id": "6908df8f61c8cdd8092388dc",
+    "title": "Organic Coffee Farm",
+    "description": "Sustainable coffee farm in the highlands. Premium Arabica beans, eco-friendly practices, and direct trade relationships. Includes processing facilities and established buyer network.",
+    "location": "Kona, Hawaii",
+    "images": [
+      "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800",
+      "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800",
+      "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800",
+      "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800"
+    ],
+    "created_at": "2026-01-18T12:00:00.000Z",
+    "created_by": {
+      "id": "6908df8f61c8cdd8092388d8",
+      "name": "apple"
+    },
+    "admins": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple"
+      }
+    ],
+    "members": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple",
+        "joined_at": "2026-01-18T12:00:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e5",
+        "name": "coffee_lover",
+        "joined_at": "2026-01-19T08:30:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e6",
+        "name": "hawaii_investor",
+        "joined_at": "2026-01-20T16:45:00.000Z"
+      }
+    ],
+    "expected_members": 12,
+    "per_member_cost": 8000,
+    "target_amount": 96000,
+    "status": "FUNDING",
+    "chat_messages": [
+      {
+        "user": "apple",
+        "message": "Looking forward to growing premium Kona coffee together!",
+        "timestamp": "2026-01-18T12:05:00.000Z"
+      },
+      {
+        "user": "coffee_lover",
+        "message": "This is a dream investment for me!",
+        "timestamp": "2026-01-19T09:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "_id": "6908df8f61c8cdd8092388dd",
+    "title": "Mountain Ski Resort Lodge",
+    "description": "Boutique ski lodge with 20 rooms, restaurant, and spa. Prime location near major ski runs. Year-round income from winter skiing and summer hiking tourism.",
+    "location": "Aspen, Colorado",
+    "images": [
+      "https://images.unsplash.com/photo-1605408499391-6368c628ef42?w=800",
+      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800"
+    ],
+    "created_at": "2026-01-12T16:00:00.000Z",
+    "created_by": {
+      "id": "6908df8f61c8cdd8092388d8",
+      "name": "apple"
+    },
+    "admins": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple"
+      }
+    ],
+    "members": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple",
+        "joined_at": "2026-01-12T16:00:00.000Z"
+      }
+    ],
+    "expected_members": 15,
+    "per_member_cost": 100000,
+    "target_amount": 1500000,
+    "status": "FUNDING",
+    "chat_messages": []
+  },
+  {
+    "_id": "6908df8f61c8cdd8092388de",
+    "title": "Urban Rooftop Garden",
+    "description": "Commercial rooftop garden for restaurants and markets. Hydroponic systems, year-round production, premium organic produce. Contracts with 5 upscale restaurants already secured.",
+    "location": "Brooklyn, New York",
+    "images": [
+      "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800",
+      "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800",
+      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800",
+      "https://images.unsplash.com/photo-1459156212016-c812468e2115?w=800"
+    ],
+    "created_at": "2026-01-08T11:00:00.000Z",
+    "created_by": {
+      "id": "6908df8f61c8cdd8092388d8",
+      "name": "apple"
+    },
+    "admins": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple"
+      }
+    ],
+    "members": [
+      {
+        "id": "6908df8f61c8cdd8092388d8",
+        "name": "apple",
+        "joined_at": "2026-01-08T11:00:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e7",
+        "name": "green_thumb",
+        "joined_at": "2026-01-09T14:20:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e8",
+        "name": "urban_farmer",
+        "joined_at": "2026-01-09T18:40:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388e9",
+        "name": "veggie_pro",
+        "joined_at": "2026-01-10T10:10:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388ea",
+        "name": "sustainable_invest",
+        "joined_at": "2026-01-10T13:25:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388eb",
+        "name": "ny_gardener",
+        "joined_at": "2026-01-11T09:50:00.000Z"
+      },
+      {
+        "id": "6908df8f61c8cdd8092388ec",
+        "name": "organic_lover",
+        "joined_at": "2026-01-11T15:30:00.000Z"
+      }
+    ],
+    "expected_members": 7,
+    "per_member_cost": 25000,
+    "target_amount": 175000,
+    "status": "COMPLETED",
+    "chat_messages": [
+      {
+        "user": "apple",
+        "message": "We're fully funded and operational! First harvest next week.",
+        "timestamp": "2026-01-11T16:00:00.000Z"
+      },
+      {
+        "user": "green_thumb",
+        "message": "Amazing! Can't wait to see the results.",
+        "timestamp": "2026-01-11T16:15:00.000Z"
+      },
+      {
+        "user": "organic_lover",
+        "message": "This is the future of urban agriculture!",
+        "timestamp": "2026-01-11T17:00:00.000Z"
+      }
+    ]
+  }
+]

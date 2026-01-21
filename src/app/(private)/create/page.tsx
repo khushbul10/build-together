@@ -30,7 +30,7 @@ export default function CreatePropertyPage() {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [expected_members, setExpectedMembers] = useState("");
-  const [per_member_cost, setPerMemberCost] = useState("");
+  const [total_cost, setTotalCost] = useState("");
   
   // State for the dynamic image list
   const [images, setImages] = useState<string[]>([]);
@@ -39,8 +39,10 @@ export default function CreatePropertyPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Calculate total target
-  const targetAmount = (parseFloat(per_member_cost) || 0) * (parseInt(expected_members, 10) || 0);
+  // Calculate cost per member from total cost and expected members
+  const totalCostNum = parseFloat(total_cost) || 0;
+  const expectedMembersNum = parseInt(expected_members, 10) || 0;
+  const perMemberCost = expectedMembersNum > 0 ? totalCostNum / expectedMembersNum : 0;
 
   // --- Image List Functions ---
   const handleAddImage = () => {
@@ -86,9 +88,10 @@ export default function CreatePropertyPage() {
           description,
           location,
           expected_members,
-          per_member_cost,
+          per_member_cost: perMemberCost,
           images, // Pass the array of images
         }),
+        // Note: target_amount will be calculated as expected_members * per_member_cost on the backend
       });
 
       const data = await res.json();
@@ -205,17 +208,17 @@ export default function CreatePropertyPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="per_member_cost" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    Cost per Member ($) *
+                  <label htmlFor="total_cost" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    Total Project Cost ($) *
                   </label>
                   <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-4">
                       <DollarIcon />
                     </span>
                     <input
-                      id="per_member_cost" type="number" value={per_member_cost}
-                      onChange={(e) => setPerMemberCost(e.target.value)}
-                      placeholder="5000" min="1" required
+                      id="total_cost" type="number" value={total_cost}
+                      onChange={(e) => setTotalCost(e.target.value)}
+                      placeholder="500000" min="1" required
                       className="w-full rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-900 pl-12 pr-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 shadow-sm focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                   </div>
@@ -239,22 +242,22 @@ export default function CreatePropertyPage() {
                 </div>
               </div>
               
-              {/* --- Calculated Total --- */}
-              {targetAmount > 0 && (
+              {/* --- Calculated Cost Per Member --- */}
+              {perMemberCost > 0 && totalCostNum > 0 && expectedMembersNum > 0 && (
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-l-4 border-green-500 p-5 rounded-xl shadow-md">
                   <div className="flex items-center gap-3 mb-2">
                     <svg className="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
                     <p className="text-sm font-semibold text-green-800 dark:text-green-300">
-                      Total Target Amount
+                      Cost per Member (Auto-calculated)
                     </p>
                   </div>
                   <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-1">
-                    {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0 }).format(targetAmount)}
+                    {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }).format(perMemberCost)}
                   </p>
                   <p className="text-xs text-green-700 dark:text-green-400">
-                    {expected_members} members × ${per_member_cost} per member
+                    ${new Intl.NumberFormat("en-US").format(totalCostNum)} ÷ {expectedMembersNum} members
                   </p>
                 </div>
               )}
